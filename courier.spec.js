@@ -28,6 +28,11 @@ describe('calculateOrderShippingCost', () => {
         width: 49,
         depth: 9
     }
+    const largeParcel = {
+        height: 1,
+        width: 99,
+        depth: 99
+    }
     it('should accept an array of parcel objects', () => {
         expect(() => {courier.calculateOrderShippingCost(order)}).not.toThrow();
     });
@@ -42,6 +47,10 @@ describe('calculateOrderShippingCost', () => {
 
     it('should return a cost of $8 for a medium parcel (all dimensions < 50cm)', () => {
         expect(courier.calculateOrderShippingCost([mediumParcel])).toEqual([8]);
+    })
+
+    it('should return a cost of $15 for a large parcel (all dimensions < 100cm)', () => {
+        expect(courier.calculateOrderShippingCost([largeParcel])).toEqual([15]);
     })
 
 });
