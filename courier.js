@@ -17,7 +17,11 @@ const calculateOrderShippingCost = (order, speedy = false) => {
                     resultArray.push(3 + extra);
                     return;
                 }
-                resultArray.push(8);
+                let extra = 0;
+                if(parcel.weight > 3) {
+                    extra = (parcel.weight - 3) * 2;
+                }
+                resultArray.push(8 + extra);
                 return;
             }
             resultArray.push(15);
