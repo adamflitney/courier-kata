@@ -22,22 +22,22 @@ describe('calculateOrderShippingCost', () => {
         height: 9,
         width: 8,
         depth: 9
-    }
+    };
     const mediumParcel = {
         height: 49,
         width: 49,
         depth: 9
-    }
+    };
     const largeParcel = {
         height: 1,
         width: 99,
         depth: 99
-    }
+    };
     const xlParcel = {
         height: 100,
         width: 99,
         depth: 50
-    }
+    };
     const normalPrice = courier.calculateOrderShippingCost(order).reduce((acc, cur) => acc + cur);
     it('should accept an array of parcel objects', () => {
         expect(() => {courier.calculateOrderShippingCost(order)}).not.toThrow();
@@ -79,6 +79,16 @@ describe('calculateOrderShippingCost', () => {
         expect(speedyPrices[0]).toEqual(normalPrices[0]);
         expect(speedyPrices[1]).toEqual(normalPrices[1]);
         expect(speedyPrices[2]).toEqual(normalPrices[2]);
+    });
+
+    it('should charge $2/kg for small parcels heavier than 1kg', () => {
+        const heavySmallParcel = {
+            height: 9,
+            width: 9,
+            depth: 9,
+            weight: 3
+        };
+        expect(courier.calculateOrderShippingCost([heavySmallParcel])).toEqual([7]);
     });
 
 });
