@@ -1,0 +1,11 @@
+{
+  "name": "courier",
+  "version": "1.0.0",
+  "description": "a library to provide package costs",
+  "main": "courier.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Adam Flitney",
+  "license": "ISC"
+}
