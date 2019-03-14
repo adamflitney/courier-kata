@@ -10,7 +10,11 @@ const calculateOrderShippingCost = (order, speedy = false) => {
         if (parcel.width < 100 && parcel.height < 100 && parcel.depth < 100) {
             if (parcel.width < 50 && parcel.height < 50 && parcel.depth < 50) {
                 if (parcel.width < 10 && parcel.height < 10 && parcel.depth < 10) {
-                    resultArray.push(3);
+                    let extra = 0;
+                    if(parcel.weight > 1) {
+                        extra = (parcel.weight - 1) * 2;
+                    }
+                    resultArray.push(3 + extra);
                     return;
                 }
                 resultArray.push(8);
