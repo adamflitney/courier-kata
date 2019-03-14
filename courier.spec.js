@@ -19,7 +19,7 @@ describe('calculateOrderShippingCost', () => {
         }
     ];
     it('should accept an array of parcel objects', () => {
-        expect(courier.calculateOrderShippingCost(order)).not.toThrow();
+        expect(() => {courier.calculateOrderShippingCost(order)}).not.toThrow();
     });
 
 });
