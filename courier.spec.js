@@ -22,4 +22,8 @@ describe('calculateOrderShippingCost', () => {
         expect(() => {courier.calculateOrderShippingCost(order)}).not.toThrow();
     });
 
+    it('should return an equal size array of costs', () => {
+        expect(courier.calculateOrderShippingCost(order)).toHaveLength(3);
+    });
+
 });
