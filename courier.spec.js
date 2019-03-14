@@ -48,18 +48,24 @@ describe('calculateOrderShippingCost', () => {
 
     it('should return a cost of $3 for a small parcel (all dimensions < 10cm)', () => {
         expect(courier.calculateOrderShippingCost([smallParcel])).toEqual([3]);
-    })
+    });
 
     it('should return a cost of $8 for a medium parcel (all dimensions < 50cm)', () => {
         expect(courier.calculateOrderShippingCost([mediumParcel])).toEqual([8]);
-    })
+    });
 
     it('should return a cost of $15 for a large parcel (all dimensions < 100cm)', () => {
         expect(courier.calculateOrderShippingCost([largeParcel])).toEqual([15]);
-    })
+    });
 
     it('should return a cost of $25 for an XL parcel (any dimension >= 100cm)', () => {
         expect(courier.calculateOrderShippingCost([xlParcel])).toEqual([25]);
-    })
+    });
+
+    it('should double the cost of an order if speedy shipping specified', () => {
+        const normalPrice = courier.calculateOrderShippingCost(order).reduce((acc, cur) => acc + cur);
+        const speedyPrice = courier.calculateOrderShippingCost(order, true).reduce((acc, cur) => acc + cur);
+        expect(speedyPrice).toEqual(normalPrice * 2);
+    });
 
 });
