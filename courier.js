@@ -1,38 +1,34 @@
 
+const extraWeightCostPerKG = 2;
+
 const calculateOrderShippingCost = (order, speedy = false) => {
     let resultArray = [];
 
     order.forEach(parcel => {
+        const smallCost = 3;
+        const mediumCost = 8;
+        const largeCost = 15;
+        const xlCost = 25;
+        const smallWeightLimit = 1;
+        const mediumWeightLimit = 3;
+        const largeWeightLimit = 6;
+        const xlWeightLimit = 10;
+        
         if (parcel.width >= 100 || parcel.height >= 100 || parcel.depth >= 100) {
-            let extra = 0;
-            if (parcel.weight > 10) {
-                extra = (parcel.weight - 10) * 2;
-            }
-            resultArray.push(25 + extra);
+            
+            resultArray.push(xlCost + weightCost(xlWeightLimit, parcel.weight));
             return;
         }
         if (parcel.width < 100 && parcel.height < 100 && parcel.depth < 100) {
             if (parcel.width < 50 && parcel.height < 50 && parcel.depth < 50) {
                 if (parcel.width < 10 && parcel.height < 10 && parcel.depth < 10) {
-                    let extra = 0;
-                    if (parcel.weight > 1) {
-                        extra = (parcel.weight - 1) * 2;
-                    }
-                    resultArray.push(3 + extra);
+                    resultArray.push(smallCost + weightCost(smallWeightLimit, parcel.weight));
                     return;
                 }
-                let extra = 0;
-                if (parcel.weight > 3) {
-                    extra = (parcel.weight - 3) * 2;
-                }
-                resultArray.push(8 + extra);
+                resultArray.push(mediumCost + weightCost(mediumWeightLimit, parcel.weight));
                 return;
             }
-            let extra = 0;
-            if (parcel.weight > 6) {
-                extra = (parcel.weight - 6) * 2;
-            }
-            resultArray.push(15 + extra);
+            resultArray.push(largeCost + weightCost(largeWeightLimit, parcel.weight));
             return;
         }
         resultArray.push(0);
@@ -42,6 +38,12 @@ const calculateOrderShippingCost = (order, speedy = false) => {
         resultArray.push(subTotalCost);
     }
     return resultArray;
+}
+
+const weightCost = (weightLimit, weight) => {
+    let extra = 0;
+    extra = weight - weightLimit > 0 ? (weight - weightLimit) * extraWeightCostPerKG : 0;
+    return extra;
 }
 
 module.exports = {
