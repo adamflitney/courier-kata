@@ -38,6 +38,7 @@ describe('calculateOrderShippingCost', () => {
         width: 99,
         depth: 50
     }
+    const normalPrice = courier.calculateOrderShippingCost(order).reduce((acc, cur) => acc + cur);
     it('should accept an array of parcel objects', () => {
         expect(() => {courier.calculateOrderShippingCost(order)}).not.toThrow();
     });
@@ -63,9 +64,21 @@ describe('calculateOrderShippingCost', () => {
     });
 
     it('should double the cost of an order if speedy shipping specified', () => {
-        const normalPrice = courier.calculateOrderShippingCost(order).reduce((acc, cur) => acc + cur);
         const speedyPrice = courier.calculateOrderShippingCost(order, true).reduce((acc, cur) => acc + cur);
         expect(speedyPrice).toEqual(normalPrice * 2);
+    });
+
+    it('should list speedy shipping as a seperate output item, with its associated cost', () => {
+        expect(courier.calculateOrderShippingCost(order, true)).toHaveLength(4);
+        expect(courier.calculateOrderShippingCost(order, true)[3]).toEqual(normalPrice);
+    });
+
+    it('should not impact price of individual parcels when speedy shipping specified', () => {
+        const normalPrices = courier.calculateOrderShippingCost(order);
+        const speedyPrices = courier.calculateOrderShippingCost(order, true);
+        expect(speedyPrices[0]).toEqual(normalPrices[0]);
+        expect(speedyPrices[1]).toEqual(normalPrices[1]);
+        expect(speedyPrices[2]).toEqual(normalPrices[2]);
     });
 
 });
