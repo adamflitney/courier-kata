@@ -4,7 +4,11 @@ const calculateOrderShippingCost = (order, speedy = false) => {
 
     order.forEach(parcel => {
         if (parcel.width >= 100 || parcel.height >= 100 || parcel.depth >= 100) {
-            resultArray.push(25);
+            let extra = 0;
+            if (parcel.weight > 10) {
+                extra = (parcel.weight - 10) * 2;
+            }
+            resultArray.push(25 + extra);
             return;
         }
         if (parcel.width < 100 && parcel.height < 100 && parcel.depth < 100) {
