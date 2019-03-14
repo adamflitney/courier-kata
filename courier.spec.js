@@ -100,4 +100,14 @@ describe('calculateOrderShippingCost', () => {
         expect(courier.calculateOrderShippingCost([heavyMediumParcel])).toEqual([12]);
     });
 
+    it('should charge $2/kg for large parcels heavier than 6kg', () => {
+        const heavyLargeParcel = {
+            height: 99,
+            width: 99,
+            depth: 99,
+            weight: 9
+        };
+        expect(courier.calculateOrderShippingCost([heavyLargeParcel])).toEqual([21]);
+    });
+
 });
