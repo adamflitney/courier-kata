@@ -1,5 +1,5 @@
 
-const calculateOrderShippingCost = (order) => {
+const calculateOrderShippingCost = (order, speedy = false) => {
     let resultArray = [];
 
     order.forEach(parcel => {
@@ -21,7 +21,10 @@ const calculateOrderShippingCost = (order) => {
         }
         resultArray.push(0);
     });
-
+    if(speedy) {
+        const subTotalCost = resultArray.reduce((acc, cur) => acc + cur);
+        resultArray.push(subTotalCost);
+    }
     return resultArray;
 }
 
