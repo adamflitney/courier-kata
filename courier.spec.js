@@ -90,5 +90,14 @@ describe('calculateOrderShippingCost', () => {
         };
         expect(courier.calculateOrderShippingCost([heavySmallParcel])).toEqual([7]);
     });
+    it('should charge $2/kg for medium parcels heavier than 3kg', () => {
+        const heavyMediumParcel = {
+            height: 49,
+            width: 49,
+            depth: 49,
+            weight: 5
+        };
+        expect(courier.calculateOrderShippingCost([heavyMediumParcel])).toEqual([12]);
+    });
 
 });
