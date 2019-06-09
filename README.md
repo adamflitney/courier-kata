@@ -1,5 +1,5 @@
 # courier-kata
-A library for calculating the cost of sending a shipment of parcels (for a technical test)
+A library for calculating the cost of sending a shipment of parcels.
 
 ## Setup
 Requires NodeJS to be installed.
